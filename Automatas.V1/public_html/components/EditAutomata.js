@@ -2,16 +2,26 @@ import React, {Fragment} from 'react';
 
 import {useForm} from 'react-hook-form'
 
-const AddAutomata = (props) => {
 
-    const {register, handleSubmit} = useForm();
+const EditAutomata = (props) => {
+
+    const {register, handleSubmit, setValue} = useForm({
+        defaultValues: props.currentAutomata
+    });
+
+    setValue('afdon', props.currentAutomata.afdon);
+    setValue('estados', props.currentAutomata.estados);
+    setValue('alfabeto', props.currentAutomata.alfabeto);
+    setValue('inicio', props.currentAutomata.inicio);
+    setValue('final', props.currentAutomata.final);
+    setValue('cantalfa', props.currentAutomata.cantalfa);
 
     //const [Datos, setDatos] = useState()
 
 
     const onSubmit = (data, e) => {
-        
-        props.add(data)
+        data.id = props.currentAutomata.id
+        props.updateAutomata(props.currentAutomata.id, data)
         e.target.reset();
     }
 
@@ -27,10 +37,8 @@ const AddAutomata = (props) => {
                     {...register("afdon")}>
                     <option value="0">AFD</option>
                     <option value="1">AFND</option>
-                    
 
                     </select>
-
                     <hr></hr>
 
                     <label>
@@ -98,7 +106,7 @@ const AddAutomata = (props) => {
 
                     <hr></hr>
                     
-                    <button className="btn btn-primary">Guardar Automata</button>
+                    <button className="btn btn-primary">Editar Automata</button>
 
                     <hr></hr>
 
@@ -108,10 +116,11 @@ const AddAutomata = (props) => {
 
             </div>
         </Fragment>
+        
 
 
     );
-
+ 
 }
 
-export default AddAutomata;
+export default EditAutomata;
