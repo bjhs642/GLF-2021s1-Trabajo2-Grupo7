@@ -14,22 +14,32 @@ var auto1 = []; var auto2 = [];
 
 var arrfinalu = [];
 
-function separar(){ //IGNORAR SIGO TRABAJANDO AQUI
+function separara(){
     var vara = document.getElementById("varA").value;
     console.log(vara);
+   
+    sa = vara.split(';');
+    console.log("Cantidad de variables: " + sa.length);
+    
+    for (var i=0; i < sa.length; i++) {
+      console.log("A:" + sa[i]);
+    }
+    parseInt(sa);
+    return sa;
+}
+
+function separarb(){
     var varb = document.getElementById("varB").value;
     console.log(varb);
-    sa = vara.split(';');
+    
     sb = varb.split(';');
-    console.log("Cantidad de variables: " + sa.length);
     console.log("Cantidad de variables: " + sb.length);
-
-   for (var i=0; i < sa.length; i++) {
-      console.log("A:" + sa[i]);
-   }
-   for (var i=0; i < sb.length; i++) {
+    
+    for (var i=0; i < sb.length; i++) {
       console.log("B:" + sb[i]);
-   }
+    }
+    parseInt(sb);
+    return sb;
 }
 
 function automata(){
@@ -80,78 +90,118 @@ function automata(){
 function datos(){
 
     var auxe = document.getElementById("estado").value;
-    var auxa = document.getElementById("varA").value;
-    separar();
+    //var auxa = document.getElementById("varA").value;
     //parseInt(auxa);
-    var auxb = document.getElementById("varB").value;
-    parseInt(auxb);
+    //var auxb = document.getElementById("varB").value;
+    //parseInt(auxb);
     var auxc = cantidad;
+    var errest = 0;
+    var erra = 0;
+    var errb = 0;
+    var varauxa = separara();
+    var varauxb = separarb();
+    var auxlena = varauxa.length;
+    var auxlenb = varauxb.length;
 
-    if(auxe >= 0 && auxa >= -1 && auxb >= -1 && (auxe % 1 === 0) && (auxa % 1 === 0) && (auxb % 1 === 0) && (auxe <= auxc) && (auxa <= auxc) && (auxb <= auxc)){
-        var aux = estados.length;
-
-        estados[aux] = document.getElementById("estado").value;
-        console.log(estados);
-        varA[aux] = document.getElementById("varA").value;
-        parseInt(varA[aux]);
-        console.log(varA);
-        varB[aux] = document.getElementById("varB").value;
-        parseInt(varB[aux]);
-        console.log(varB);
-        final[aux] = document.getElementById("final").value;
-        console.log(final);
-    }else{
+    for(var i = 0; i<auxlena; i++){
+        if(sa[i] >= -1 && (sa[i] % 1 === 0) && (sa[i] <= auxc)){
+            erra++;
+        }}
+            for(var j = 0; j<auxlenb; j++){
+                if(sb[j] >= -1 && (sb[j] % 1 === 0) && (sb[j] <= auxc)){
+                    errb++;
+                }}
+                    if(auxe >= 0 && (auxe % 1 === 0) && (auxe <= auxc)){
+                        errest = 1;
+                    }
+                
+            
+    if(errest === 0){
+    //ERRORES ESTADO
+    let insertarTerminal = document.querySelector(".terminal");
+    let adv = `ERROR: Los datos NO PUDIERON ser agregados<br>`;
+    insertarTerminal.innerHTML += adv;
+        if(auxe < 0){
+            let insertarTerminal = document.querySelector(".terminal");
+            let adv = `ERROR: El estado debe ser POSITIVO el valor NO SERA AGREGADO<br>`;
+            insertarTerminal.innerHTML += adv;
+        }
+        if(auxe % 1 !== 0){
+            let insertarTerminal = document.querySelector(".terminal");
+            let adv = `ERROR: El estado debe ser un número ENTERO el valor NO SERA AGREGADO<br>`;
+            insertarTerminal.innerHTML += adv;
+        }
+        if(auxe > auxc){
+            let insertarTerminal = document.querySelector(".terminal");
+            let adv = `ERROR: El estado debe ser un número MENOR A LA CANTIDAD DE ESTADOS el valor NO SERA AGREGADO<br>`;
+            insertarTerminal.innerHTML += adv;
+        }
+    }
+    if(errb !== auxlenb){
+        //ERRORES B
         let insertarTerminal = document.querySelector(".terminal");
         let adv = `ERROR: Los datos NO PUDIERON ser agregados<br>`;
         insertarTerminal.innerHTML += adv;
-            if(auxe < 0){
-                let insertarTerminal = document.querySelector(".terminal");
-                let adv = `ERROR: El estado debe ser POSITIVO el valor NO SERA AGREGADO<br>`;
-                insertarTerminal.innerHTML += adv;
-            }
-            if(auxa < -1){
-                let insertarTerminal = document.querySelector(".terminal");
-                let adv = `ERROR: El valor en A debe ser MAYOR O IGUAL A -1 el valor NO SERA AGREGADO<br>`;
-                insertarTerminal.innerHTML += adv;
-            }
-            if(auxb < -1){
+        for(var j = 0; j<auxlenb; j++){
+            if(sb[j] < -1){
                 let insertarTerminal = document.querySelector(".terminal");
                 let adv = `ERROR: El valor en B debe ser MAYOR O IGUAL A -1 el valor NO SERA AGREGADO<br>`;
                 insertarTerminal.innerHTML += adv;
             }
-            if(auxe % 1 !== 0){
-                let insertarTerminal = document.querySelector(".terminal");
-                let adv = `ERROR: El estado debe ser un número ENTERO el valor NO SERA AGREGADO<br>`;
-                insertarTerminal.innerHTML += adv;
-            }
-            if(auxa % 1 !== 0){
-                let insertarTerminal = document.querySelector(".terminal");
-                let adv = `ERROR: El valor en A debe ser un número ENTERO el valor NO SERA AGREGADO<br>`;
-                insertarTerminal.innerHTML += adv;
-            }
-            if(auxb % 1 !== 0){
+            if(sb[j] % 1 !== 0){
                 let insertarTerminal = document.querySelector(".terminal");
                 let adv = `ERROR: El valor en B debe ser un número ENTERO el valor NO SERA AGREGADO<br>`;
                 insertarTerminal.innerHTML += adv;
             }
-            if(auxe > auxc){
-                let insertarTerminal = document.querySelector(".terminal");
-                let adv = `ERROR: El estado debe ser un número MENOR A LA CANTIDAD DE ESTADOS el valor NO SERA AGREGADO<br>`;
-                insertarTerminal.innerHTML += adv;
-            }
-            if(auxa > auxc){
-                let insertarTerminal = document.querySelector(".terminal");
-                let adv = `ERROR: El valor en A debe ser un número MENOR A LA CANTIDAD DE ESTADOS el valor NO SERA AGREGADO<br>`;
-                insertarTerminal.innerHTML += adv;
-            }
-            if(auxb > auxc){
+            if(sb[j] > auxc){
                 let insertarTerminal = document.querySelector(".terminal");
                 let adv = `ERROR: El valor en B debe ser un número MENOR A LA CANTIDAD DE ESTADOS el valor NO SERA AGREGADO<br>`;
                 insertarTerminal.innerHTML += adv;
             }
+        }
+    }
+    if(erra !== auxlena){
+        //ERRORES A
+        let insertarTerminal = document.querySelector(".terminal");
+        let adv = `ERROR: Los datos NO PUDIERON ser agregados<br>`;
+        insertarTerminal.innerHTML += adv;
+        for(var i = 0; i<auxlena; i++){
+            if(sa[i] < -1){
+                let insertarTerminal = document.querySelector(".terminal");
+                let adv = `ERROR: El valor en A debe ser MAYOR O IGUAL A -1 el valor NO SERA AGREGADO<br>`;
+                insertarTerminal.innerHTML += adv;
+            }
+            if(sa[i] % 1 !== 0){
+                let insertarTerminal = document.querySelector(".terminal");
+                let adv = `ERROR: El valor en A debe ser un número ENTERO el valor NO SERA AGREGADO<br>`;
+                insertarTerminal.innerHTML += adv;
+            }
+            if(sa[i] > auxc){
+                let insertarTerminal = document.querySelector(".terminal");
+                let adv = `ERROR: El valor en A debe ser un número MENOR A LA CANTIDAD DE ESTADOS el valor NO SERA AGREGADO<br>`;
+                insertarTerminal.innerHTML += adv;
+            }
+        }
+    }
+
+    if(erra === auxlena && errb === auxlenb && errest === 1){
+        var aux = estados.length;
+
+        estados[aux] = document.getElementById("estado").value;
+        console.log(estados);
+        varA[aux] = varauxa;
+        console.log(varA);
+        varB[aux] = varauxb;
+        console.log(varB);
+        final[aux] = document.getElementById("final").value;
+        console.log(final);
+    }
+    else {
+        
     }
 }
 
+            
 function finauto1(){ //DATOS TERMINADOS EN U SON AUTOMATA UNO
     idu = id;
     afdou = afdo;
