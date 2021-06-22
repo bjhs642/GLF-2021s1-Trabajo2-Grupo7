@@ -8,6 +8,8 @@ var varA = []; var varAu = []; var varAd = [];
 var varB = []; var varBu = []; var varBd = [];
 var final = []; var finalu = []; var finald = [];
 
+var sa; var sb;
+
 var auto1 = []; var auto2 = [];
 
 var arrfinalu = [];
@@ -15,15 +17,20 @@ var arrfinalu = [];
 function separar(){ //IGNORAR SIGO TRABAJANDO AQUI
     var vara = document.getElementById("varA").value;
     console.log(vara);
-    var sa = vara.split(' ');
-    //var sb = vara.split(';');
+    var varb = document.getElementById("varB").value;
+    console.log(varb);
+    sa = vara.split(';');
+    sb = varb.split(';');
     console.log("Cantidad de variables: " + sa.length);
+    console.log("Cantidad de variables: " + sb.length);
 
    for (var i=0; i < sa.length; i++) {
       console.log("A:" + sa[i]);
    }
+   for (var i=0; i < sb.length; i++) {
+      console.log("B:" + sb[i]);
+   }
 }
-
 
 function automata(){
     var aux = document.getElementById("cantest").value;
